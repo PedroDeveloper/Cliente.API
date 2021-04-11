@@ -13,17 +13,17 @@ using Cliente.API.Model;
 
 namespace Cliente.API.Data.Repository
 {
-	public class EnderecoRepository
+	public class ClienteEnderecoRepository
 	{
 
 		private readonly ILoggerFactory _loggerFactory;
-		private readonly ILogger<EnderecoRepository> _log;
+		private readonly ILogger<ClienteEnderecoRepository> _log;
 		private readonly IConfiguration _config;
 
-		public EnderecoRepository(ILoggerFactory loggerFactory, IConfiguration config)
+		public ClienteEnderecoRepository(ILoggerFactory loggerFactory, IConfiguration config)
 		{
 			_loggerFactory = loggerFactory;
-			_log = loggerFactory.CreateLogger<EnderecoRepository>();
+			_log = loggerFactory.CreateLogger<ClienteEnderecoRepository>();
 			_config = config;
 		}
 
@@ -207,31 +207,31 @@ namespace Cliente.API.Data.Repository
 
         #region Retrieve Data
 
-        public EnderecoModel Get(int ID_end)
+        public List <EnderecoModel> Get(int ID_cliente)
         {
             SqlHelper dataConnection;
             SqlCommand command;
             DataSet dataSet;
 
-            EnderecoModel Cliente;
+            List  <EnderecoModel> Clientes;
 
             try
             {
                 dataConnection = new SqlHelper(_loggerFactory, _config);
 
-                command = new SqlCommand($"SELECT * FROM Endereco WHERE ID_end = @ID_end");
-                command.Parameters.AddWithValue("ID_end", ID_end.AsDbValue());
+                command = new SqlCommand($"SELECT * FROM Endereco WHERE ID_cliente = @ID_cliente");
+                command.Parameters.AddWithValue("ID_cliente", ID_cliente.AsDbValue());
 
                 dataSet = dataConnection.ExecuteDataSet(command);
 
-                Cliente = Load(dataSet).FirstOrDefault();
+                Clientes = Load(dataSet);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-            return Cliente;
+            return Clientes;
         }
 
         public List<EnderecoModel> Get(string name=null)
