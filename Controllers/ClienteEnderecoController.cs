@@ -62,13 +62,10 @@ namespace Endereco.API.Controllers
 			return response;
 		}
 
-		// GET: api/Cliente/5
-		
-
-		[HttpPost]
+		[HttpPost("{documento}")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-		public IActionResult Post([FromBody] EnderecoModel endereco)
+		public IActionResult Post([FromBody] EnderecoModel endereco, string documento)
 		{
 			ClienteEnderecoBO clienteEnderecoBO;
 			ObjectResult response;
@@ -79,7 +76,7 @@ namespace Endereco.API.Controllers
 
 				clienteEnderecoBO = new ClienteEnderecoBO(_loggerFactory, _config);
 
-				endereco = clienteEnderecoBO.Insert(endereco);
+				endereco = clienteEnderecoBO.Insert(endereco, documento);
 
 				response = Ok(endereco);
 
@@ -94,37 +91,11 @@ namespace Endereco.API.Controllers
 			return response;
 		}
 
-		// PUT: api/Cliente/5
-		[HttpPut("{id}")]
-		[ProducesResponseType(StatusCodes.Status200OK)]
-		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-		public IActionResult Put(int id, EnderecoModel endereco)
-		{
-			ClienteEnderecoBO clienteEnderecoBO;
-			ObjectResult response;
 
-			try
-			{
-				_log.LogInformation($"Starting Put( {id}, '{JsonConvert.SerializeObject(endereco, Formatting.None)}')");
 
-				clienteEnderecoBO = new ClienteEnderecoBO(_loggerFactory, _config);
 
-				endereco.ID_end = id;
-				endereco = clienteEnderecoBO.Update(endereco);
 
-				response = Ok(endereco);
 
-				_log.LogInformation($"Finishing Put( {id} )");
-			}	
-			catch (Exception ex)
-			{
-				_log.LogError(ex.Message);
-				response = StatusCode(500, ex.Message);
-			}
 
-			return response;
-		}
-
-		
 	}
 }

@@ -21,61 +21,10 @@ namespace Cliente.API.Business
 			_config = config;
 		}
 
-		#region Change Data
-
-		public EnderecoModel Insert(EnderecoModel endereco)
-		{
-			ClienteEnderecoRepository ClienteEnderecoRepository;
-
-			try
-			{
-				ClienteEnderecoRepository = new ClienteEnderecoRepository(_loggerFactory, _config);
-
-				if (endereco.ID_end == 0)
-				{
-					endereco = ClienteEnderecoRepository.Insert(endereco);
-				}
-				else
-				{
-					throw new Exception("ID diferente de 0, avalie a utilização do PUT");
-				}
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
-
-			return endereco;
-		}
-
-		public EnderecoModel Update(EnderecoModel endereco)
-		{
-			ClienteEnderecoRepository clienteEnderecoRepository;
-
-			try
-			{
-				clienteEnderecoRepository = new ClienteEnderecoRepository(_loggerFactory, _config);
-
-				if (endereco.ID_end == 0)
-				{
-					throw new Exception("ID diferente de 0, avalie a utilização do POST");
-				}
-				else
-				{
-					clienteEnderecoRepository.Update(endereco);
-				}
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
-
-			return endereco;
-		}
-
+		
 		
 
-		#endregion
+
 
 		#region Retrieve Repository
 
@@ -98,24 +47,33 @@ namespace Cliente.API.Business
 			return endereco;
 		}
 
-		public List<EnderecoModel> Get( string name = null)
+
+		public EnderecoModel Insert(EnderecoModel endereco,string documento)
 		{
-			ClienteEnderecoRepository clienteEnderecoRepository;
-			List<EnderecoModel> enderecos;
+			ClienteEnderecoRepository ClienteEnderecoRepository;
 
 			try
 			{
-				clienteEnderecoRepository = new ClienteEnderecoRepository(_loggerFactory, _config);
+				ClienteEnderecoRepository = new ClienteEnderecoRepository(_loggerFactory, _config);
 
-				enderecos = clienteEnderecoRepository.Get(name);
+				if (endereco.ID_end == 0)
+				{
+					endereco = ClienteEnderecoRepository.Insert(endereco,documento);
+				}
+				else
+				{
+					throw new Exception("ID diferente de 0, avalie a utilização do PUT");
+				}
 			}
 			catch (Exception ex)
 			{
 				throw ex;
 			}
 
-			return enderecos;
+			return endereco;
 		}
+
+
 
 		#endregion
 	}

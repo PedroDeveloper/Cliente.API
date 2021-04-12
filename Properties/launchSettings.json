@@ -18,13 +18,13 @@
       }
     },
     "Cliente.API": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "api/cliente",
-      "applicationUrl": "http://localhost:5000",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "commandName": "Project",
+        "launchBrowser": true,
+        "launchUrl": "api/cliente",
+        "applicationUrl": "http://192.168.10.17:5000/",
+        "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+        }
     }
   }
 }

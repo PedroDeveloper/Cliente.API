@@ -34,3 +34,5 @@ ALTER TABLE Endereco Add Constraint PK_Enderecol Primary Key(ID)
 ALTER TABLE Endereco Add Constraint FK_Endereco Foreign Key(ID_cliente) References Cliente(ID) ON DELETE CASCADE
 
 ---------------------------------------------------------------------------
+CREATE UNIQUE INDEX foo1 ON dbo.cliente(cnpj)  WHERE cnpj IS NOT NULL;
+CREATE UNIQUE INDEX foo1 ON dbo.cliente(cpf)  WHERE cpf IS NOT NULL;
